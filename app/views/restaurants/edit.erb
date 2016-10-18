@@ -1,0 +1,9 @@
+<h1>Edit <%= @restaurant.name %></h1>
+
+<form action="/restaurants/<%= @restaurant.id %>/edit" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+  Name: <input type="text" name="name" value="<%= @restaurant.name %>"><br>
+  <p>Rating: NAH. Call Michelin for that.</p>
+  Address: <input type="text" name="address" value="<%= @restaurant.address %>"><br>
+  <input type="submit" value="Edit Restaurant">
+</form>
