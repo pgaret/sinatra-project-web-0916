@@ -7,11 +7,13 @@ class RestaurantsController < ApplicationController
 
   post '/restaurants/search' do
     @restaurants = []
+    @location = params[:location].split(" ").map {|word| word.capitalize}.join(" ")
+    @food = params[:term].capitalize
     search = Yelp.client.search(params[:location], {term: params[:term]})
     search.businesses.each do |restaurant|
       @restaurants << Restaurant.find_or_create_by(name: restaurant.name, rating: restaurant.rating, address: restaurant.location.address.first )
     end
-    erb :'/restaurants/index'
+    erb :'/restaurants/search'
   end
 
   post '/restaurants' do
