@@ -6,7 +6,6 @@ class RestaurantsController < ApplicationController
   end
 
   post '/restaurants/search' do
-    binding.pry
     @restaurants = []
     search = Yelp.client.search(params[:location], {term: params[:term]})
     search.each do |restaurants|
