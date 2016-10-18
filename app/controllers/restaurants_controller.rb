@@ -8,8 +8,8 @@ class RestaurantsController < ApplicationController
   post '/restaurants/search' do
     @restaurants = []
     search = Yelp.client.search(params[:location], {term: params[:term]})
-    search.each do |restaurants|
-      @restaurants << Restaurant.find_or_create_by(name: search.businesses.name)
+    search.businesses.each do |restaurant|
+      @restaurants << Restaurant.find_or_create_by(name: restaurant.name, rating: restaurant.rating, address: restaurant.location.address.first )
     end
     erb :'/restaurants/index'
   end
