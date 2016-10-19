@@ -6,7 +6,6 @@ class RestaurantsController < ApplicationController
   # end
 
   get '/restaurants' do
-
     search = Yelp.client.search('San Francisco').businesses
     search.each do |restaurant|
       Restaurant.find_or_create_by(name: restaurant.name, rating: restaurant.rating, address: restaurant.location.address.first)
