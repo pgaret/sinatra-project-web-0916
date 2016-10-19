@@ -1,16 +1,15 @@
 class RestaurantsController < ApplicationController
 
-  get '/restaurants' do
-    @restaurants = Restaurant.all
-    erb :'/restaurants/index'
-  end
+  # get '/restaurants' do
+  #   @restaurants = Restaurant.all
+  #   erb :'/restaurants/index'
+  # end
 
-  post '/restaurants/search' do
-    binding.pry
-    @restaurants = []
-    search = Yelp.client.search(params[:location], {term: params[:term]})
-    search.each do |restaurants|
-      @restaurants << Restaurant.find_or_create_by(name: search.businesses.name)
+  get '/restaurants' do
+
+    search = Yelp.client.search('San Francisco').businesses
+    search.each do |restaurant|
+      Restaurant.find_or_create_by(name: restaurant.name, rating: restaurant.rating, address: restaurant.location.address.first)
     end
     erb :'/restaurants/index'
   end

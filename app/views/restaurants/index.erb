@@ -1,5 +1,5 @@
 <h1>All the Restaurants</h1>
 
-<% @restaurants.each do |restaurant| %>
+<% Restaurant.all.each do |restaurant| %>
 <p><a href="/restaurants/<%=restaurant.id%>"><%= restaurant.name %></a></p>
 <% end %>
